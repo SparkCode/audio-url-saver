@@ -1,6 +1,6 @@
 let isAdded;
 
-chrome.tabs.onUpdated.addListener((activeInfo) => {
+const func = (activeInfo) => {
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
       var url = tabs[0].url;
       if (url && url.startsWith("https://www.ldoceonline.com")){ 
@@ -21,5 +21,10 @@ chrome.tabs.onUpdated.addListener((activeInfo) => {
         isAdded = false;
       }
   });
-});
+};
+
+chrome.tabs.onUpdated.addListener(func);
+
+chrome.tabs.onSelectionChanged.addListener(func);
+
 
