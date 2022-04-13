@@ -1,0 +1,17 @@
+{
+    "content_scripts": [
+        {
+          "matches": ["https://*.ldoceonline.com/*"],
+          "js": ["content-script.js"]
+        }
+      ],
+   "description": "GetAudioUrl",
+   "manifest_version": 2,
+   "name": "Get audio url",
+   "permissions": [ "tabs", "contextMenus"],
+   "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+   "version": "1.0"
+}
