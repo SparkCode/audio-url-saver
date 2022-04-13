@@ -1,4 +1,6 @@
-chrome.tabs.onActivated.addListener((activeInfo) => {
+let isAdded;
+
+chrome.tabs.onUpdated.addListener((activeInfo) => {
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
       var url = tabs[0].url;
       if (url && url.startsWith("https://www.ldoceonline.com")){ 
@@ -13,8 +15,10 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
         chrome.contextMenus.create({
             "title": "copy audio url", "id": "parent", "contexts":['all'],
         });
+        isAdded = true;
       } else {
-        chrome.contextMenus.remove("parent")
+        isAdded && chrome.contextMenus.remove("parent")
+        isAdded = false;
       }
   });
 });
