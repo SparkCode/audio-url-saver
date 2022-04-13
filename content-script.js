@@ -25,6 +25,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 throw e;
             });
             }, 
-        0)
+        100)
     }
 });

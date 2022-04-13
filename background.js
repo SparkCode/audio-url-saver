@@ -1,7 +1,7 @@
 chrome.tabs.onActivated.addListener((activeInfo) => {
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
       var url = tabs[0].url;
-      if (url.startsWith("https://www.ldoceonline.com")){ 
+      if (url && url.startsWith("https://www.ldoceonline.com")){ 
         // The onClicked callback function.
         function onClickHandler(info, tab) {
           chrome.tabs.sendMessage(tab.id, "getClickedEl", {frameId: info.frameId});
@@ -13,6 +13,8 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
         chrome.contextMenus.create({
             "title": "copy audio url", "id": "parent", "contexts":['all'],
         });
+      } else {
+        chrome.contextMenus.remove("parent")
       }
   });
 });
