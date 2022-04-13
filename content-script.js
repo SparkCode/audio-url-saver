@@ -13,18 +13,15 @@ navigator.permissions.query({name: "clipboard-write"}).then(result => {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if(request == "getClickedEl") {
-        setTimeout(() => {
-            const url = clickedEl.getAttribute('data-src-mp3');
-            if (!url) {
-                throw Error('no url inside dom element');
-            }
-            navigator.clipboard.writeText(url.split('?')[0]).then(function() {
-                 /* clipboard successfully set */
-            }, function(e) {
-                console.error(e);
-                throw e;
-            });
-            }, 
-        100)
+        const url = clickedEl.getAttribute('data-src-mp3');
+        if (!url) {
+            throw Error('no url inside dom element');
+        }
+        navigator.clipboard.writeText(url.split('?')[0]).then(function() {
+             /* clipboard successfully set */
+        }, function(e) {
+            console.error(e);
+            throw e;
+        });
     }
 });
