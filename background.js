@@ -1,30 +1,16 @@
-let isAdded;
+/* global chrome */
 
-const func = (activeInfo) => {
-  chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true}, function (tabs) {
-      var url = tabs[0].url;
-      if (url && url.startsWith("https://www.ldoceonline.com")){ 
-        // The onClicked callback function.
-        function onClickHandler(info, tab) {
-          chrome.tabs.sendMessage(tab.id, "getClickedEl", {frameId: info.frameId});
-        };
+chrome.runtime.onInstalled.addListener(() => {
+    const showForPages = ['https://www.ldoceonline.com/*'];
 
-        chrome.contextMenus.onClicked.addListener(onClickHandler);
+    chrome.contextMenus.create({
+        title: 'copy audio url', id: 'parent', contexts: ['all'], documentUrlPatterns: showForPages,
+    });
 
-          // Create a parent item and two children.
-        chrome.contextMenus.create({
-            "title": "copy audio url", "id": "parent", "contexts":['all'],
-        });
-        isAdded = true;
-      } else {
-        isAdded && chrome.contextMenus.remove("parent")
-        isAdded = false;
-      }
-  });
-};
+    // The onClicked callback function.
+    function onClickHandler(info, tab) {
+        chrome.tabs.sendMessage(tab.id, 'getClickedEl', { frameId: info.frameId });
+    }
 
-chrome.tabs.onUpdated.addListener(func);
-
-chrome.tabs.onSelectionChanged.addListener(func);
-
-
+    chrome.contextMenus.onClicked.addListener(onClickHandler);
+});

@@ -1,27 +1,33 @@
-//content script
-var clickedEl = null;
+/* global chrome */
 
-document.addEventListener("contextmenu", function(event){
+let clickedEl = null;
+
+document.addEventListener('contextmenu', (event) => {
     clickedEl = event.target;
 }, true);
 
-navigator.permissions.query({name: "clipboard-write"}).then(result => {
-  if (result.state == "granted" || result.state == "prompt") {
+const showMessage = (message, background) => {
+    const messageElement = document.createElement('div');
+    messageElement.style.cssText = `position:fixed;top:0;left:0;width:200px;height:100px;background-color:${background};`;
+    messageElement.innerText = message;
+    document.documentElement.appendChild(messageElement);
 
-  }
-});
+    setTimeout(() => {
+        messageElement.remove();
+    }, 5000);
+};
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if(request == "getClickedEl") {
+chrome.runtime.onMessage.addListener((request) => {
+    if (request === 'getClickedEl') {
         const url = clickedEl.getAttribute('data-src-mp3');
         if (!url) {
-            throw Error('no url inside dom element');
+            showMessage('no url inside dom element', 'red');
+            return;
         }
-        navigator.clipboard.writeText(url.split('?')[0]).then(function() {
-             /* clipboard successfully set */
-        }, function(e) {
-            console.error(e);
-            throw e;
+        navigator.clipboard.writeText(url.split('?')[0]).then(() => {
+            showMessage('Succeed', 'green');
+        }, (e) => {
+            showMessage(e.toString(), 'red');
         });
     }
 });
