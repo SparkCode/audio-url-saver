@@ -5,3 +5,7 @@ The code of extension is situated inside ./source folder
 ### How to install unpacked extension
 
 https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
+
+### Supported sites
+
+https://www.ldoceonline.com/
