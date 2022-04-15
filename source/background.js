@@ -1,6 +1,6 @@
 /* global chrome */
 
-chrome.runtime.onInstalled.addListener(() => {
+const addContextMenuOption = () => {
     const showForPages = ['https://www.ldoceonline.com/*'];
 
     chrome.contextMenus.create({
@@ -13,4 +13,8 @@ chrome.runtime.onInstalled.addListener(() => {
     }
 
     chrome.contextMenus.onClicked.addListener(onClickHandler);
-});
+};
+
+chrome.runtime.onStartup.addListener(addContextMenuOption);
+
+chrome.runtime.onInstalled.addListener(addContextMenuOption);
