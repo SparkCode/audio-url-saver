@@ -1,6 +1,6 @@
 # audio-url-saver
 
-The code of extension is situated inside ./source folder 
+The code of the extension is situated inside ./source folder 
 
 ### How to install unpacked extension
 
