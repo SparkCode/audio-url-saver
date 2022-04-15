@@ -1,5 +1,7 @@
 # audio-url-saver
 
+This extension helps you to extract audio urls from ui interfaces
+
 The code of the extension is situated inside ./source folder 
 
 ### How to install unpacked extension
