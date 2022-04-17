@@ -19,11 +19,12 @@ const showMessage = (message, background) => {
 
 chrome.runtime.onMessage.addListener((request) => {
     if (request === 'getClickedEl') {
-        const url = clickedEl.getAttribute('data-src-mp3');
-        if (!url) {
+        const node = clickedEl.hasAttribute('data-src-mp3') ? clickedEl : clickedEl.querySelector('[data-src-mp3]');
+        if (!node) {
             showMessage('no url inside dom element', 'red');
             return;
         }
+        const url = node.getAttribute('data-src-mp3');
         navigator.clipboard.writeText(url.split('?')[0]).then(() => {
             showMessage('Succeed', 'green');
         }, (e) => {
