@@ -1,17 +1,19 @@
 {
-    "content_scripts": [
-        {
-          "matches": ["https://*.ldoceonline.com/*"],
-          "js": ["content-script.js"]
-        }
-      ],
-   "description": "GetAudioUrl",
-   "manifest_version": 2,
-   "name": "Get audio url",
-   "permissions": [ "tabs", "contextMenus"],
-   "background": {
-    "persistent": false,
-    "scripts": ["background.js"]
+  "name": "Get audio url",
+  "description": "GetAudioUrl",
+  "version": "2.0",
+  "manifest_version": 3,
+  "permissions": [
+    "contextMenus",
+    "declarativeContent"
+  ],
+  "background": {
+    "service_worker": "background.js"
   },
-   "version": "1.0"
+  "content_scripts": [
+    {
+      "matches": ["https://*.ldoceonline.com/*"],
+      "js": ["content-script.js"]
+    }
+  ]
 }

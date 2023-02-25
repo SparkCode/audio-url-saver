@@ -2,6 +2,19 @@
 
 let clickedEl = null;
 
+const showForPages = [{ pageUrl: { hostEquals: 'www.ldoceonline.com' } }];
+
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
+        chrome.declarativeContent.onPageChanged.addRules([
+            {
+                conditions: showForPages,
+                actions: [new chrome.declarativeContent.ShowPageAction()],
+            },
+        ]);
+    });
+});
+
 document.addEventListener('contextmenu', (event) => {
     clickedEl = event.target;
 }, true);
