@@ -1,11 +1,14 @@
 {
     "content_scripts": [
         {
-          "matches": ["https://*.ldoceonline.com/*"],
+          "matches": [
+            "https://*.ldoceonline.com/*",
+            "https://dictionary.cambridge.org/*"
+          ],
           "js": ["content-script.js"]
         }
       ],
-   "description": "GetAudioUrl",
+   "description": "Get audio URLs from Longman and Cambridge dictionaries",
    "manifest_version": 2,
    "name": "Get audio url",
    "permissions": [ "tabs", "contextMenus"],

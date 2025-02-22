@@ -1,6 +1,9 @@
 /* global chrome */
 
-const showForPages = ['https://www.ldoceonline.com/*'];
+const showForPages = [
+    'https://www.ldoceonline.com/*',
+    'https://dictionary.cambridge.org/*'
+];
 
 chrome.contextMenus.create({
     title: 'copy audio url', id: 'parent', contexts: ['all'], documentUrlPatterns: showForPages,
